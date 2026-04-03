@@ -46,7 +46,7 @@ df_mass_moon = pd.read_sql("""
 # Replace None with your code
 df_blue = pd.read_sql("""
             select name, color from planets
-            where color like "blue%"
+            where lower(color) like "%blue%"
                       """, conn1)
 # print(df_blue)
 
@@ -75,7 +75,7 @@ df_hungry = pd.read_sql("""
 # Replace None with your code
 df_hungry_ages = pd.read_sql("""
                 select name, age, hungry from dogs
-                where age between 2 AND 7
+                where age between 2 AND 7 AND hungry = 1
                 order by name
                              """,conn2)
 # print(df_hungry_ages)
@@ -83,14 +83,11 @@ df_hungry_ages = pd.read_sql("""
 # STEP 8
 # Replace None with your code
 df_4_oldest = pd.read_sql("""
-                select name, age, breed from(
                 select name, age, breed from dogs
-                order by age desc
+                order by age desc, breed asc
                 limit 4
-                ) as oldest_dogs
-                order by breed
-                             """, conn2)
-# print(df_4_oldest)
+""", conn2)
+print(df_4_oldest)
 
 
 ##### Part 4: Aggregation #####
